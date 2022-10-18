@@ -32,7 +32,17 @@ class Array
 
 
     def my_flatten
+        return [self] if self.is_a?(Array)
+        flattened = []
 
+        self.my_each do |ele|
+            if ele.is_a?(Array)
+                flattened << ele.my_flatten
+            else
+                flattened << ele
+            end
+        end
+            flattened
     end
 
 
@@ -74,15 +84,24 @@ class Array
 
 
     def my_join(seperator="")
-        self.join(seperator)
+        join =""
+        self.each do |char|
+            if self[-1]
+                join += char
+            else
+                join += char + seperator
+            end
+        end
     end
 
 
     def my_reverse
-        self.reverse
+        reversed = []
+        self.my_each do |char|
+            reversed.unshift(char)
+        end
+        reversed
     end
-
-
 
 end
 
